@@ -1,7 +1,10 @@
+# Runtime
+streamlit==1.36.0
 yfinance==0.2.40
 pandas==2.2.2
-ta-lib==0.4.28
-streamlit==1.36.0
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-pydantic==2.5.3
+numpy==1.26.4
+plotly==5.22.0
+
+# Development / quality
+pytest==8.2.2
+ruff==0.5.0
