@@ -1,29 +1,21 @@
-"""Market-data retrieval helpers for the educational trading assistant."""
+"""Market-data retrieval helpers for the mobile trading assistant backend."""
 
 from __future__ import annotations
 
 import pandas as pd
-import streamlit as st
 import yfinance as yf
 
 VALID_PERIODS = ("1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "max")
 
 
 def normalize_ticker(ticker: str) -> str:
-    """Normalize a ticker symbol entered by a user."""
     normalized = ticker.strip().upper()
     if not normalized:
         raise ValueError("Ticker symbol cannot be empty.")
     return normalized
 
 
-@st.cache_data(ttl=900, show_spinner=False)
 def get_price_history(ticker: str, period: str = "1y", interval: str = "1d") -> pd.DataFrame:
-    """Return cached historical OHLCV data for a ticker.
-
-    Cache TTL is 15 minutes to reduce repeated Yahoo Finance requests while
-    keeping the dashboard reasonably fresh for research use.
-    """
     symbol = normalize_ticker(ticker)
     if period not in VALID_PERIODS:
         raise ValueError(f"Unsupported period: {period}")
@@ -32,9 +24,7 @@ def get_price_history(ticker: str, period: str = "1y", interval: str = "1d") -> 
 
     data = yf.Ticker(symbol).history(period=period, interval=interval, auto_adjust=False)
     if data.empty:
-        raise ValueError(
-            f"No market data was returned for '{symbol}'. Check the ticker and try again."
-        )
+        raise ValueError(f"No market data was returned for '{symbol}'.")
 
     data = data.reset_index()
     date_column = "Datetime" if "Datetime" in data.columns else "Date"
@@ -52,14 +42,11 @@ def get_price_history(ticker: str, period: str = "1y", interval: str = "1d") -> 
 
 
 def get_latest_quote(data: pd.DataFrame) -> dict[str, float]:
-    """Create a small latest-price summary from historical data."""
     if data.empty:
-        raise ValueError("Cannot calculate a quote from an empty DataFrame.")
-
+        raise ValueError("Cannot calculate a quote from empty data.")
     latest_close = float(data["Close"].iloc[-1])
     previous_close = float(data["Close"].iloc[-2]) if len(data) > 1 else latest_close
     change_percent = ((latest_close - previous_close) / previous_close * 100) if previous_close else 0.0
-
     return {
         "latest_close": latest_close,
         "previous_close": previous_close,
