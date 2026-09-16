@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Trading Assistant",
+    "slug": "trading-assistant",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "tradingassistant",
+    "ios": {
+      "bundleIdentifier": "com.stelianmihalceanu.tradingassistant"
+    },
+    "android": {
+      "package": "com.stelianmihalceanu.tradingassistant"
+    }
+  }
+}
