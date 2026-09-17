@@ -6,16 +6,17 @@
   "scripts": {
     "start": "expo start",
     "ios": "expo run:ios",
-    "android": "expo run:android"
+    "android": "expo run:android",
+    "doctor": "expo-doctor"
   },
   "dependencies": {
-    "expo": "~57.0.0",
-    "expo-status-bar": "~3.0.8",
+    "expo": "~57.0.9",
+    "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
-    "react-native": "0.86.0"
+    "react-native": "0.86.3"
   },
   "devDependencies": {
     "@types/react": "~19.2.0",
-    "typescript": "~5.9.2"
+    "typescript": "~6.0.3"
   }
 }
