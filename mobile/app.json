@@ -2,15 +2,18 @@
   "expo": {
     "name": "Trading Assistant",
     "slug": "trading-assistant",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "scheme": "tradingassistant",
+    "description": "Market research assistant for ticker analysis, technical indicators, and explainable signals. Educational use only.",
+    "android": {
+      "package": "com.stelianmihalceanu.tradingassistant",
+      "versionCode": 2,
+      "permissions": []
+    },
     "ios": {
       "bundleIdentifier": "com.stelianmihalceanu.tradingassistant"
-    },
-    "android": {
-      "package": "com.stelianmihalceanu.tradingassistant"
     }
   }
 }
