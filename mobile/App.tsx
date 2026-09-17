@@ -14,7 +14,9 @@ import { StatusBar } from "expo-status-bar";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, "");
 
-const API_TIMEOUT_MS = 15_000;
+// Render Free can need extra time to wake the API and yfinance can take several
+// seconds on the first market-data request. Keep the client from aborting too early.
+const API_TIMEOUT_MS = 60_000;
 
 type Analysis = {
   ticker: string;
@@ -71,8 +73,11 @@ export default function App() {
 
       setAnalysis(data);
     } catch (e) {
-      if (e instanceof Error && e.name === "AbortError") {
-        setError("The market-data service took too long to respond. Please try again.");
+      const errorName = e instanceof Error ? e.name : "";
+      const errorMessage = e instanceof Error ? e.message.toLowerCase() : "";
+
+      if (errorName === "AbortError" || errorMessage.includes("canceled") || errorMessage.includes("cancelled")) {
+        setError("The market-data service is taking longer than expected. Please try again in a few seconds.");
       } else if (e instanceof TypeError) {
         setError("Could not connect to the market-data service. Check your connection and try again.");
       } else {
