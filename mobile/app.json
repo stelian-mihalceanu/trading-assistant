@@ -14,6 +14,11 @@
     },
     "ios": {
       "bundleIdentifier": "com.stelianmihalceanu.tradingassistant"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "213763e9-085f-437c-b7df-35891fc29834"
+      }
     }
   }
 }
